@@ -3,6 +3,18 @@
 
 using namespace std;
 
+bool vertical_win(char mas[3][3])
+{
+    for (int i = 0; i < 3; i++)
+    {
+        if (mas[i][0] == mas[i][1] && mas[i][1] == mas[i][2])
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 void print(char mas[3][3])
 {
     for (int i = 0; i < 3; i++)
