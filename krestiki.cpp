@@ -3,14 +3,55 @@
 
 using namespace std;
 
-bool vertical_win(char mas[3][3])
-{
-    for (int i = 0; i < 3; i++)
+bool vertical_win(char mas[3][3]) {
+    for (int i = 0; i < 3; i++) {
+        if (mas[i][0] != '*' && mas[i][1] != '*' && mas[i][2] != '*')
+        {
+            if (mas[i][0] == mas[i][1] && mas[i][1] == mas[i][2]) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool horizontal_win(char mas[3][3]) {
+    for (int i = 0; i < 3; i++) {
+        if (mas[i][0] != '*' && mas[i][1] != '*' && mas[i][2] != '*')
+        {
+            if (mas[0][i] == mas[1][i] && mas[1][i] == mas[2][i])
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool diagonal_win(char mas[3][3]) {
+
+    if (mas[0][0] != '*' && mas[1][1] != '*' && mas[2][2] != '*')
     {
-        if (mas[i][0] == mas[i][1] && mas[i][1] == mas[i][2])
+        if (mas[0][0] == mas[1][1] && mas[1][1] == mas[2][2])
         {
             return true;
         }
+    }
+
+    if (mas[0][2] != '*' && mas[1][1] != '*' && mas[2][0] != '*') {
+        if (mas[0][2] == mas[1][1] && mas[1][1] == mas[2][0])
+        {
+            return true;
+        }
+
+    }
+    return false;
+}
+
+bool win(char mas[3][3]) {
+    if (vertical_win(mas) || horizontal_win(mas) || diagonal_win(mas))
+    {
+        return true;
     }
     return false;
 }
@@ -47,18 +88,22 @@ int main()
         if (i % 2 == 1)
         {
             print(mas);
-            cout << "Ход первого игрока, выберите ячейку: ";
+            cout << "Ход первого игрока, выберите ячейку: " << endl;
             cin >> m >> n;
 
             mas[m - 1][n - 1] = 'X';
+            print(mas);
+
         }
         else if (i % 2 == 0)
         {
             print(mas);
-            cout << "Ход второго игрока, выберите ячейку: ";
+            cout << "Ход второго игрока, выберите ячейку: " << endl;
             cin >> m >> n;
 
             mas[m - 1][n - 1] = 'O';
+            print(mas);
+
         }
     }
 
