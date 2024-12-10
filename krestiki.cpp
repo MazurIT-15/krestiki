@@ -5,11 +5,12 @@ using namespace std;
 
 bool vertical_win(char mas[3][3]) {
     for (int i = 0; i < 3; i++) {
-        if (mas[i][0] != '*' && mas[i][1] != '*' && mas[i][2] != '*')
-        {
+        if (mas[i][0] != '*' && mas[i][1] != '*' && mas[i][2] != '*') {
+
             if (mas[i][0] == mas[i][1] && mas[i][1] == mas[i][2]) {
                 return true;
             }
+
         }
     }
     return false;
@@ -87,22 +88,47 @@ int main()
     {
         if (i % 2 == 1)
         {
-            print(mas);
-            cout << "Ход первого игрока, выберите ячейку: " << endl;
-            cin >> m >> n;
+            while (f) {
 
-            mas[m - 1][n - 1] = 'X';
-            print(mas);
+                print(mas);
+                cout << "Ход первого игрока, выберите ячейку: ";
+                //print(mas);
+                cin >> m >> n;
+                if (m <= 3 && m >= 1 && n <= 3 && n >= 1) {
+                    if (mas[m - 1][n - 1] == '*') {
+                        mas[m - 1][n - 1] = 'X';
+                        print(mas);
+                        f = false;
+
+                        if (win(mas)) {
+                            cout << "Первый игрок победил!" << endl;
+                            break;
+                        }
+                    }
+                    else {
+                        cout << "Ячейка занята" << endl;
+                    }
+                }
+                else {
+                    cout << "Ошибка" << endl;
+                }
+
+            }
 
         }
         else if (i % 2 == 0)
         {
             print(mas);
-            cout << "Ход второго игрока, выберите ячейку: " << endl;
+            cout << "Ход второго игрока, выберите ячейку: ";
             cin >> m >> n;
 
             mas[m - 1][n - 1] = 'O';
-            print(mas);
+            if (win(mas))
+            {
+                print(mas);
+                cout << "Второй игрок победил!" << endl;
+                break;
+            }
 
         }
     }
