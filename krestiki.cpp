@@ -5,11 +5,11 @@ using namespace std;
 
 int main()
 {
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
+    SetConsoleCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);
     char mas[3][3];
 
-    for (int i = 0; i < 3; i++) // заполнение массива
+    for (int i = 0; i < 3; i++) //Р·Р°РїРѕР»РЅСЏРµРј РјР°СЃСЃРёРІ
     {
         for (int j = 0; j < 3; j++)
         {
