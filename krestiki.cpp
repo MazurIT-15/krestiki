@@ -88,11 +88,11 @@ int main()
     {
         if (i % 2 == 1)
         {
+            bool f = true;
             while (f) {
 
                 print(mas);
                 cout << "Ход первого игрока, выберите ячейку: ";
-                //print(mas);
                 cin >> m >> n;
                 if (m <= 3 && m >= 1 && n <= 3 && n >= 1) {
                     if (mas[m - 1][n - 1] == '*') {
@@ -118,18 +118,37 @@ int main()
         }
         else if (i % 2 == 0)
         {
-            print(mas);
-            cout << "Ход второго игрока, выберите ячейку: ";
-            cin >> m >> n;
-
-            mas[m - 1][n - 1] = 'O';
-            if (win(mas))
+            bool f = true;
+            while (f)
             {
                 print(mas);
-                cout << "Второй игрок победил!" << endl;
-                break;
-            }
+                cout << "Ход второго игрока, выберите ячейку: ";
+                cin >> m >> n;
 
+                if (m <= 3 && m >= 1 && n <= 3 && n >= 1)
+                {
+                    if (mas[m - 1][n - 1] == '*')
+                    {
+                        mas[m - 1][n - 1] = 'O';
+                        print(mas);
+                        f = false;
+
+                        if (win(mas))
+                        {
+                            cout << "Второй игрок победил!" << endl;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        cout << "Ячейка занята" << endl;
+                    }
+                }
+                else
+                {
+                    cout << "Ошибка" << endl;
+                }
+            }
         }
     }
 
