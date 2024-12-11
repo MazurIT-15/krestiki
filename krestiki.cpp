@@ -5,9 +5,9 @@ using namespace std;
 
 bool vertical_win(char mas[3][3]) {
     for (int i = 0; i < 3; i++) {
-        if (mas[i][0] != '*' && mas[i][1] != '*' && mas[i][2] != '*') {
+        if (mas[0][i] != '*' && mas[1][i] != '*' && mas[2][i] != '*') {
 
-            if (mas[i][0] == mas[i][1] && mas[i][1] == mas[i][2]) {
+            if (mas[0][i] == mas[1][i] && mas[1][i] == mas[2][i]) {
                 return true;
             }
 
@@ -20,7 +20,7 @@ bool horizontal_win(char mas[3][3]) {
     for (int i = 0; i < 3; i++) {
         if (mas[i][0] != '*' && mas[i][1] != '*' && mas[i][2] != '*')
         {
-            if (mas[0][i] == mas[1][i] && mas[1][i] == mas[2][i])
+            if (mas[i][0] == mas[i][1] && mas[i][1] == mas[i][2])
             {
                 return true;
             }
@@ -97,12 +97,12 @@ int main()
                 if (m <= 3 && m >= 1 && n <= 3 && n >= 1) {
                     if (mas[m - 1][n - 1] == '*') {
                         mas[m - 1][n - 1] = 'X';
-                        print(mas);
+                        
                         f = false;
 
                         if (win(mas)) {
                             cout << "Первый игрок победил!" << endl;
-                            break;
+                            return 0;
                         }
                     }
                     else {
@@ -130,13 +130,13 @@ int main()
                     if (mas[m - 1][n - 1] == '*')
                     {
                         mas[m - 1][n - 1] = 'O';
-                        print(mas);
+                        
                         f = false;
 
                         if (win(mas))
                         {
                             cout << "Второй игрок победил!" << endl;
-                            break;
+                            return 0;
                         }
                     }
                     else
