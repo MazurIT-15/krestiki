@@ -1,5 +1,8 @@
 #include <iostream>
+#define NOMINMAX
 #include <windows.h>
+#include <limits>
+
 
 using namespace std;
 
@@ -83,7 +86,7 @@ int main()
         }
     }
 
-    int m, n;
+    int m,n;
     for (int i = 1; i < 9; i++) // цикл ходов
     {
         if (i % 2 == 1)
@@ -92,8 +95,16 @@ int main()
             while (f) {
 
                 print(mas);
-                cout << "Ход первого игрока, выберите ячейку: ";
-                cin >> m >> n;
+                cout << "Ход первого игрока, выберите ячейку: "<<endl;
+
+                if (!(cin >> m >> n))
+                { 
+                    cout << "Ошибка: введите числа." << endl;
+                    cin.clear();                                         
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                    continue;                                            
+                }
+
                 if (m <= 3 && m >= 1 && n <= 3 && n >= 1) {
                     if (mas[m - 1][n - 1] == '*') {
                         mas[m - 1][n - 1] = 'X';
@@ -110,7 +121,7 @@ int main()
                     }
                 }
                 else {
-                    cout << "Ошибка" << endl;
+                    cout << "Ошибка введено неверное значение" << endl;
                 }
 
             }
@@ -123,7 +134,14 @@ int main()
             {
                 print(mas);
                 cout << "Ход второго игрока, выберите ячейку: ";
-                cin >> m >> n;
+
+                if (!(cin >> m >> n))
+                {
+                    cout << "Ошибка: введите числа." << endl;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    continue;
+                }
 
                 if (m <= 3 && m >= 1 && n <= 3 && n >= 1)
                 {
@@ -146,7 +164,8 @@ int main()
                 }
                 else
                 {
-                    cout << "Ошибка" << endl;
+                    cout << "Ошибка введено неверное значение" << endl;
+
                 }
             }
         }
