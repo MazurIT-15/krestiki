@@ -60,6 +60,21 @@ bool win(char mas[3][3]) {
     return false;
 }
 
+bool is_draw(char mas[3][3])
+{
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if (mas[i][j] == '*')
+            {                 
+                return false; // Игра не закончилась вничью
+            }
+        }
+    }
+    return !win(mas); // Если нет победителя, то ничья
+}
+
 void print(char mas[3][3])
 {
     for (int i = 0; i < 3; i++)
@@ -87,7 +102,7 @@ int main()
     }
 
     int m,n;
-    for (int i = 1; i < 9; i++) // цикл ходов
+    for (int i = 1; i < 10; i++) // цикл ходов
     {
         if (i % 2 == 1)
         {
@@ -113,6 +128,13 @@ int main()
 
                         if (win(mas)) {
                             cout << "Первый игрок победил!" << endl;
+                            return 0;
+                        }
+
+                        if (is_draw(mas))
+                        { 
+                            print(mas);
+                            cout << "Игра завершилась вничью!" << endl;
                             return 0;
                         }
                     }
@@ -156,9 +178,17 @@ int main()
                             cout << "Второй игрок победил!" << endl;
                             return 0;
                         }
+
+                        if (is_draw(mas))
+                        { 
+                            print(mas);
+                            cout << "Игра завершилась вничью!" << endl;
+                            return 0;
+                        }
                     }
                     else
                     {
+                        
                         cout << "Ячейка занята" << endl;
                     }
                 }
