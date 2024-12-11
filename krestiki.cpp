@@ -1,13 +1,16 @@
 #include <iostream>
+#define NOMINMAX
 #include <windows.h>
+#include <limits>
+
 
 using namespace std;
 
 bool vertical_win(char mas[3][3]) {
     for (int i = 0; i < 3; i++) {
-        if (mas[i][0] != '*' && mas[i][1] != '*' && mas[i][2] != '*') {
+        if (mas[0][i] != '*' && mas[1][i] != '*' && mas[2][i] != '*') {
 
-            if (mas[i][0] == mas[i][1] && mas[i][1] == mas[i][2]) {
+            if (mas[0][i] == mas[1][i] && mas[1][i] == mas[2][i]) {
                 return true;
             }
 
@@ -20,7 +23,7 @@ bool horizontal_win(char mas[3][3]) {
     for (int i = 0; i < 3; i++) {
         if (mas[i][0] != '*' && mas[i][1] != '*' && mas[i][2] != '*')
         {
-            if (mas[0][i] == mas[1][i] && mas[1][i] == mas[2][i])
+            if (mas[i][0] == mas[i][1] && mas[i][1] == mas[i][2])
             {
                 return true;
             }
@@ -57,6 +60,21 @@ bool win(char mas[3][3]) {
     return false;
 }
 
+bool is_draw(char mas[3][3])
+{
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if (mas[i][j] == '*')
+            {                 
+                return false; // Игра не закончилась вничью
+            }
+        }
+    }
+    return !win(mas); // Если нет победителя, то ничья
+}
+
 void print(char mas[3][3])
 {
     for (int i = 0; i < 3; i++)
@@ -83,26 +101,41 @@ int main()
         }
     }
 
-    int m, n;
-    for (int i = 1; i < 9; i++) // цикл ходов
+    int m,n;
+    for (int i = 1; i < 10; i++) // цикл ходов
     {
         if (i % 2 == 1)
         {
+            bool f = true;
             while (f) {
 
                 print(mas);
-                cout << "Ход первого игрока, выберите ячейку: ";
-                //print(mas);
-                cin >> m >> n;
+                cout << "Ход первого игрока, выберите ячейку: "<<endl;
+
+                if (!(cin >> m >> n))
+                { 
+                    cout << "Ошибка: введите числа." << endl;
+                    cin.clear();                                         
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                    continue;                                            
+                }
+
                 if (m <= 3 && m >= 1 && n <= 3 && n >= 1) {
                     if (mas[m - 1][n - 1] == '*') {
                         mas[m - 1][n - 1] = 'X';
-                        print(mas);
+                        
                         f = false;
 
                         if (win(mas)) {
                             cout << "Первый игрок победил!" << endl;
-                            break;
+                            return 0;
+                        }
+
+                        if (is_draw(mas))
+                        { 
+                            print(mas);
+                            cout << "Игра завершилась вничью!" << endl;
+                            return 0;
                         }
                     }
                     else {
@@ -110,7 +143,7 @@ int main()
                     }
                 }
                 else {
-                    cout << "Ошибка" << endl;
+                    cout << "Ошибка введено неверное значение" << endl;
                 }
 
             }
@@ -118,18 +151,53 @@ int main()
         }
         else if (i % 2 == 0)
         {
-            print(mas);
-            cout << "Ход второго игрока, выберите ячейку: ";
-            cin >> m >> n;
-
-            mas[m - 1][n - 1] = 'O';
-            if (win(mas))
+            bool f = true;
+            while (f)
             {
                 print(mas);
-                cout << "Второй игрок победил!" << endl;
-                break;
-            }
+                cout << "Ход второго игрока, выберите ячейку: ";
 
+                if (!(cin >> m >> n))
+                {
+                    cout << "Ошибка: введите числа." << endl;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    continue;
+                }
+
+                if (m <= 3 && m >= 1 && n <= 3 && n >= 1)
+                {
+                    if (mas[m - 1][n - 1] == '*')
+                    {
+                        mas[m - 1][n - 1] = 'O';
+                        
+                        f = false;
+
+                        if (win(mas))
+                        {
+                            cout << "Второй игрок победил!" << endl;
+                            return 0;
+                        }
+
+                        if (is_draw(mas))
+                        { 
+                            print(mas);
+                            cout << "Игра завершилась вничью!" << endl;
+                            return 0;
+                        }
+                    }
+                    else
+                    {
+                        
+                        cout << "Ячейка занята" << endl;
+                    }
+                }
+                else
+                {
+                    cout << "Ошибка введено неверное значение" << endl;
+
+                }
+            }
         }
     }
 
